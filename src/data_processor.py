@@ -18,18 +18,23 @@ def parse_numeric_value(value: str) -> float | None:
     """
     if not isinstance(value, str):
         return None
-    
-    value = value.replace(',', '.')
+
+    # Correctly handle German number formatting by first removing thousands separators (.)
+    # and then replacing the decimal separator (,).
+    cleaned_value = value.replace('.', '').replace(',', '.')
     
     # Handle '2x250' format for motor power by multiplying
-    if 'x' in value and len(re.findall(r"(\d+(\.\d+)?)", value)) > 1:
-        parts = value.lower().split('x')
+    if 'x' in cleaned_value and len(re.findall(r"(\d+(\.\d+)?)", cleaned_value)) > 1:
+        parts = cleaned_value.lower().split('x')
         try:
-            return float(parts[0]) * float(re.findall(r"(\d+(\.\d+)?)", parts[1])[0][0])
+            # Find all numbers in the second part to handle cases like '2x250W'
+            second_num_match = re.search(r"(\d+(\.\d+)?)", parts[1])
+            if second_num_match:
+                return float(parts[0]) * float(second_num_match.group(1))
         except (ValueError, IndexError):
             pass # Fallback to standard parsing
 
-    numbers = re.findall(r"(\d+(\.\d+)?)", value)
+    numbers = re.findall(r"(\d+(\.\d+)?)", cleaned_value)
     if numbers:
         return float(numbers[0][0])
     
