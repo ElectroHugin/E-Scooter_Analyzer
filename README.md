@@ -8,7 +8,7 @@ The data is sourced from the excellent and detailed comparison table at [escoote
 
 The easiest way to use the analyzer is through the interactive web application, which offers a modern graphical user interface.
 
-[**>> Try the Live Web App Here <<**](YOUR_STREAMLIT_APP_LINK_HERE)
+[**>> Try the Live Web App Here <<**](https://ehugin-escooteranalyzer.streamlit.app/)
 
 *(Feel free to add a screenshot of your app here!)*
 `![Streamlit App Screenshot](path/to/your/screenshot.png)`
