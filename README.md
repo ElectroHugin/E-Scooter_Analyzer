@@ -10,9 +10,6 @@ The easiest way to use the analyzer is through the interactive web application, 
 
 [**>> Try the Live Web App Here <<**](https://ehugin-escooteranalyzer.streamlit.app/)
 
-*(Feel free to add a screenshot of your app here!)*
-`![Streamlit App Screenshot](path/to/your/screenshot.png)`
-
 ## Features
 
 -   **Interactive Streamlit Web App**: A beautiful, modern web interface with interactive widgets (sliders, dropdowns) for filtering.
