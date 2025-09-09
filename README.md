@@ -1,52 +1,31 @@
 # E-Scooter Data Analyzer
 
-An interactive Command-Line Interface (CLI) tool to scrape, filter, and sort e-scooter data from the web. This tool helps you find the perfect e-scooter based on your specific criteria by analyzing a comprehensive table of available models in Germany.
+A project to scrape, filter, and sort e-scooter data, available as both an interactive web application and a command-line tool. This tool helps you find the perfect e-scooter based on your specific criteria by analyzing a comprehensive table of available models in Germany.
 
 The data is sourced from the excellent and detailed comparison table at [escooter-treff.de](https://www.escooter-treff.de/tabelle/).
 
+## Web Application (Streamlit)
+
+The easiest way to use the analyzer is through the interactive web application, which offers a modern graphical user interface.
+
+[**>> Try the Live Web App Here <<**](YOUR_STREAMLIT_APP_LINK_HERE)
+
+*(Feel free to add a screenshot of your app here!)*
+`![Streamlit App Screenshot](path/to/your/screenshot.png)`
+
 ## Features
 
+-   **Interactive Streamlit Web App**: A beautiful, modern web interface with interactive widgets (sliders, dropdowns) for filtering.
+-   **Multi-Language Support**: The web app is available in both German and English.
 -   **Web Scraping**: Fetches the latest e-scooter data directly from the source.
--   **Data Processing**: Cleans and converts the raw HTML table into a structured and typed pandas DataFrame.
--   **Smart Caching**: Scrapes data only once per day and uses a local cache for subsequent runs to improve speed and reduce server load.
--   **Interactive CLI**: A user-friendly, menu-driven interface for data analysis.
--   **Powerful Filtering**:
-    -   Filter numeric columns with operators (`<`, `<=`, `>`, `>=`, `==`). (e.g., `gewicht_kg < 20`).
-    -   Select specific values from categorical columns (e.g., `reifenart` is `tubeless`).
-    -   Filter by boolean flags (e.g., `bremslicht` is `True`).
--   **Flexible Sorting**: Sort the results by any column in either ascending or descending order.
--   **Clean Output**: Displays the resulting data in a beautifully formatted table using the `rich` library.
-
-## Demo
-
-Here is a quick look at the interactive menu in action:
-
-```
-$ python src/main.py
-✓ Loading data from local cache...
-Loaded 171 e-scooters.
-
-E-Scooter Analyzer Menu
-[1] Filter Data
-[2] Sort Data
-[3] Display Current List
-[4] Reset to Full List
-[5] Exit
-Choose an option (1/2/3/4/5): 1
-
-  [0] model (object)
-  [1] gewicht_kg (float64)
-  [2] reichweite_km_offiziell (float64)
-  ...
-Enter the number of the column to filter by: 1
-
-Filter 'gewicht_kg' | Enter operator (<, <=, >, >=, ==) [<=]: <=
-Enter value: 15
-```
+-   **Data Processing**: Cleans and converts the raw HTML table into a structured pandas DataFrame.
+-   **Smart Caching**: Scrapes data only once per day to improve speed and reduce server load.
+-   **Interactive CLI**: A user-friendly, menu-driven command-line interface for local analysis.
+-   **Powerful Filtering & Sorting**: Both the web app and CLI provide extensive options to narrow down your search.
 
 ## Getting Started
 
-Follow these instructions to get a local copy of the project up and running.
+Follow these instructions to get a local copy of the project up and running for development or local use.
 
 ### Prerequisites
 
@@ -57,8 +36,8 @@ Follow these instructions to get a local copy of the project up and running.
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/your-username/escooter-analyzer.git
-    cd escooter-analyzer
+    git clone https://github.com/ElectroHugin/E-Scooter_Analyzer.git
+    cd E-Scooter_Analyzer
     ```
 
 2.  **(Recommended) Create and activate a virtual environment:**
@@ -80,13 +59,27 @@ Follow these instructions to get a local copy of the project up and running.
 
 ## Usage
 
-To start the interactive analysis tool, run the `main.py` script from the project's root directory:
+This project can be run in two ways: as a web application or as a command-line tool.
+
+### 1. Using the Streamlit Web App (Recommended)
+
+To run the web application on your local machine, use the following command from the project's root directory:
+
+```sh
+streamlit run app.py
+```
+
+Your web browser will automatically open with the application.
+
+### 2. Using the Command-Line Tool
+
+To start the interactive CLI tool, run the `main.py` script:
 
 ```sh
 python src/main.py
 ```
 
-Follow the on-screen prompts to filter, sort, and display the e-scooter data.
+Follow the on-screen prompts to filter, sort, and display the e-scooter data in your terminal.
 
 ## Project Structure
 
@@ -94,28 +87,32 @@ The project is organized into several modules to ensure a clean and maintainable
 
 ```
 escooter-analyzer/
+├── .streamlit/
+│   └── config.toml         # Theme configuration for Streamlit
 ├── data/
 │   └── escooter_data.csv   # Local cache for the scraped data
 ├── src/
 │   ├── scraper.py          # Handles fetching the HTML and parsing the table
 │   ├── data_processor.py   # Cleans the raw data and creates the DataFrame
-│   ├── filter_sort.py      # Contains functions for filtering and sorting the DataFrame
-│   └── main.py             # The main application entry point and CLI logic
+│   ├── filter_sort.py      # Functions for CLI filtering and sorting
+│   ├── main.py             # Entry point for the CLI application
+│   └── translations.py     # Language strings for the Streamlit app
+├── app.py                  # Entry point for the Streamlit web application
 ├── .gitignore
-├── requirements.txt        # Project dependencies
+├── requirements.txt
 └── README.md
 ```
 
--   **`scraper.py`**: Connects to the website and extracts the raw, unprocessed table data.
--   **`data_processor.py`**: Takes the raw data, cleans column names, converts data types (e.g., "25,5 kg" to a float `25.5`), and prepares it for analysis.
--   **`filter_sort.py`**: A set of pure functions that take a DataFrame and perform a specific filtering or sorting operation.
--   **`main.py`**: Orchestrates the application flow. It handles data loading (with caching), user interaction, and displays the final results.
+-   **`app.py`**: The main script for the Streamlit web application.
+-   **`main.py`**: The main script for the command-line interface (CLI).
+-   **`scraper.py`**: Connects to the website and extracts the raw table data.
+-   **`data_processor.py`**: Takes the raw data and prepares it for analysis.
+-   **`filter_sort.py`**: A set of functions used by the CLI for data manipulation.
+-   **`translations.py`**: Contains the German and English text for the web app.
 
 ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
 1.  Fork the Project
 2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -130,5 +127,6 @@ Distributed under the GNU General Public License v3.0. See the `LICENSE` file fo
 ## Acknowledgments
 
 -   A big thank you to **escooter-treff.de** for creating and maintaining the comprehensive data table that makes this project possible.
--   [Rich](https://github.com/Textualize/rich) for the beautiful terminal formatting.
+-   [Streamlit](https://streamlit.io/) for making it so easy to build beautiful data apps.
+-   [Rich](https://github.com/Textualize/rich) for the beautiful terminal formatting in the CLI.
 -   [Pandas](https://pandas.pydata.org/) for the powerful data manipulation capabilities.
